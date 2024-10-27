@@ -1,0 +1,18 @@
+{
+    "directories": {
+        "downloads": {
+            "path": "~/Downloads",
+            "sorting": {
+                "by_date": true,
+                "by_extension": true
+            }
+        },
+        "documents": {
+            "path": "~/Documents",
+            "sorting": {
+                "by_date": false,
+                "by_extension": true
+            }
+        }
+    }
+}
