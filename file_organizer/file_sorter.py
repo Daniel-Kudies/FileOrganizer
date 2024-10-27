@@ -128,7 +128,6 @@ class FileSorter:
                     for category, extensions in self.file_extensions.items():
                         if extension in extensions:
                             existing_extensions.add(category)
-                            break
 
             for category in existing_extensions:
                 target_folder = os.path.join(path, category)
