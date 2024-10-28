@@ -15,6 +15,7 @@ def config_logging():
 
 def main():
     """Main function to run the FileOrganizer.
+
     Raises:
         FileNotFoundError: If a specified directory is not found.
         PermissionError: If there is a permission issue accessing a directory.
