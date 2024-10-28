@@ -12,6 +12,13 @@ import datetime
 from json_loader import JsonLoader
 
 class FileSorter:
+    """ Class to sort files based on configuration settings.
+
+    The FileSorter class organizes files in specified directories by
+    their creation date and file extensions, as defined in the
+    configuration. It utilizes a JsonLoader instance to load necessary
+    configuration and file extension mappings.
+    """
     def __init__ (self):
         json_loader = JsonLoader()
         json_loader.load_config()
@@ -20,6 +27,17 @@ class FileSorter:
         self.file_extensions = json_loader.get_file_extensions()
 
     def sort_files(self):
+        """Sort files in specified directories based on configuration.
+
+        Iterates through the configured directories, logging the process.
+        Sorts files either by creation date or by file extension,
+        depending on the configuration settings for each directory.
+
+        Raises:
+            FileNotFoundError: If a specified directory is not found.
+            PermissionError: If there is a permission issue accessing a directory.
+            Exception: For any other unexpected errors.
+        """
         try:
             for directory, details in self.config.get("directories", {}).items():
                 logging.info("Processing directory: %s", {directory})
@@ -40,6 +58,21 @@ class FileSorter:
             logging.error("An unexpected error occurred: %s", e)
 
     def sort_file_extensions(self, path, bydate):
+        """Sort files in a directory by their extensions.
+
+        Creates folders based on file extensions and moves files into
+        these folders. If `bydate` is True, it sorts files into
+        year-based folders first, then by extension.
+
+        Args:
+            path (str): The directory path where files will be sorted.
+            bydate (bool): Flag indicating whether to sort by date first.
+
+        Raises:
+            FileNotFoundError: If the specified path is not found.
+            PermissionError: If there is a permission issue accessing the path.
+            Exception: For any other unexpected errors.
+        """
         try:
             logging.debug("Sorting by File Extensions in Directory: %s", path)
 
@@ -80,6 +113,19 @@ class FileSorter:
             logging.error("An unexpected error occurred: %s", e)
 
     def sort_file_date(self, path):
+        """Sort files in a directory by their creation date.
+
+        Creates year-based folders and moves files into the appropriate
+        year folder based on their creation date.
+
+        Args:
+            path (str): The directory path where files will be sorted.
+
+        Raises:
+            FileNotFoundError: If the specified path is not found.
+            PermissionError: If there is a permission issue accessing the path.
+            Exception: For any other unexpected errors.
+        """
         try:
             logging.debug("Sorting by File Date in Directory: %s", path)
 
@@ -100,6 +146,20 @@ class FileSorter:
             logging.error("An unexpected error occurred: %s", {e})
 
     def create_date_folder(self, path):
+        """Create year-based folders in the specified directory.
+
+        Checks for existing folders for each year based on the creation
+        dates of the files in the directory. Creates folders for any
+        missing years.
+
+        Args:
+            path (str): The directory path where year folders will be created.
+
+        Raises:
+            FileNotFoundError: If there is an issue accessing the specified path.
+            PermissionError: If there is a permission issue creating folders.
+            Exception: For any other unexpected errors.
+        """
         try:
             logging.debug("Looking for Folder in Directory: %s if they exist, do nothing; else create it", path)
             time = []
@@ -113,7 +173,7 @@ class FileSorter:
 
             for year in time:
                 os.makedirs(os.path.join(path, str(year)), exist_ok=True)
-                logging.info(f"Created folder for year: {year} in {path}")
+                logging.info("Created folder for year: %s in %s", year, path)
 
         except FileNotFoundError as e:
             logging.error("Error accessing path %s: %s", path, e)
@@ -123,6 +183,19 @@ class FileSorter:
             logging.error("An unexpected error occurred while creating date folders in %s: %s", path, e)
 
     def create_extensions_folders(self, path):
+        """Create folders for each file extension in the specified directory.
+
+        Checks for existing categories based on file extensions and
+        creates folders for each unique category found among the files.
+
+        Args:
+            path (str): The directory path where extension folders will be created.
+
+        Raises:
+            FileNotFoundError: If there is an issue accessing the specified path.
+            PermissionError: If there is a permission issue creating folders.
+            Exception: For any other unexpected errors.
+        """
         try:
             logging.debug("Creating Extension Folders in Directory: %s if they exist, do nothing; else create it", path)
 
