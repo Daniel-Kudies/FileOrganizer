@@ -33,6 +33,11 @@ class JsonLoader:
 
         Returns:
             dict or None: The loaded JSON data if successful, or None if an error occurred.
+
+        Raises:
+            FileNotFoundError: If a specified directory is not found.
+            JSONDecodeError: If there is an error decoding the JSON data.
+            Exception: For any other unexpected errors.
         """
         try:
             with open(file_path, "r", encoding="utf-8") as x:
@@ -44,6 +49,8 @@ class JsonLoader:
             logging.error("Configuration file %s not found.", file_path)
         except json.JSONDecodeError:
             logging.error("Error decoding JSON from %s.", file_path)
+        except Exception as e:
+            logging.error("An unexpected error occurred: %s", e)
         return None
 
     def load_config(self):

@@ -1,4 +1,5 @@
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![Pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
 # FileOrganizer
 
 **FileOrganizer** is a Python-based utility for organizing files within specified directories, allowing users to sort files by date and by file extension. It runs in the background and is configurable through JSON files.
