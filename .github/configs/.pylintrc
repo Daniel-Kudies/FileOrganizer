@@ -1,1 +1,18 @@
+[MAIN]
+suggestion-mode=yes
+py-version = 3.8.0
+fail-under=10.0
+[REPORTS]
+evaluation=max(0, 0 if fatal else 10.0 - ((float(5 * error + warning + refactor + convention) / statement) * 10))
+score=yes
+[VARIABLES]
+init-import=yes
+allow-global-unused-variables=yes
+[FORMAT]
 max-line-length=200
+single-line-if-stmt=no
+single-line-class-stmt=no
+max-module-lines=2000
+expected-line-ending-format=
+[REFACTORING]
+max-nested-blocks=9
