@@ -11,7 +11,6 @@ import logging
 import datetime
 from json_loader import JsonLoader
 
-"""Class to handle file sorting based on configurations loaded from JSON."""
 class FileSorter:
     def __init__ (self):
         json_loader = JsonLoader()
@@ -23,7 +22,7 @@ class FileSorter:
     def sort_files(self):
         try:
             for directory, details in self.config.get("directories", {}).items():
-                logging.info(f"Processing directory: {directory}")
+                logging.info("Processing directory: %s", {directory})
 
                 path = os.path.expanduser(details.get("path", ""))
                 sortingoptions = details.get("sorting", {})
@@ -34,15 +33,15 @@ class FileSorter:
                     self.sort_file_extensions(path, sortingoptions.get("by_date"))
 
         except FileNotFoundError as e:
-            logging.error(f"File sorting error: {e}")
+            logging.error("File sorting error: %s", e)
         except PermissionError as e:
-            logging.error(f"PermissionError: {e}")
+            logging.error("PermissionError: %s", e)
         except Exception as e:
-            logging.error(f"An unexpected error occurred: {e}")
+            logging.error("An unexpected error occurred: %s", e)
 
     def sort_file_extensions(self, path, bydate):
         try:
-            logging.debug(f"Sorting by File Extensions in Directory: {path}")
+            logging.debug("Sorting by File Extensions in Directory: %s", path)
 
             self.create_extensions_folders(path)
             if bydate:
@@ -61,7 +60,7 @@ class FileSorter:
                                         targetfolder = os.path.join(year_path, category)
                                         os.makedirs(targetfolder, exist_ok=True)
                                         shutil.move(file.path, os.path.join(targetfolder, file.name))
-                                        logging.info(f"Moved file {file.name} to {targetfolder}")
+                                        logging.info("Moved file %s to %s", file.name, targetfolder)
 
             for file in os.scandir(path):
                 if file.is_file():
@@ -71,20 +70,19 @@ class FileSorter:
                             targetfolder = os.path.join(path, category)
                             os.makedirs(targetfolder, exist_ok=True)
                             shutil.move(file.path, os.path.join(targetfolder, file.name))
-                            logging.info(f"Moved file {file.name} to {targetfolder}")
-
+                            logging.info("Moved file %s to %s", file.name, targetfolder)
 
         except FileNotFoundError as e:
-            logging.error(f"File not found error: {e}")
+            logging.error("File not found error: %s", e)
         except PermissionError as e:
-            logging.error(f"Permission denied: {e}")
+            logging.error("Permission denied: %s", e)
         except Exception as e:
-            logging.error(f"An unexpected error occurred: {e}")
+            logging.error("An unexpected error occurred: %s", e)
 
     def sort_file_date(self, path):
         try:
-            logging.debug(f"Sorting by File Date in Directory: {path}")
- 
+            logging.debug("Sorting by File Date in Directory: %s", path)
+
             self.create_date_folder(path)
 
             for file in os.scandir(path):
@@ -92,18 +90,18 @@ class FileSorter:
                     temp = os.path.getctime(file)
                     creationtime = datetime.datetime.fromtimestamp(temp).year
                     shutil.move(file.path, os.path.join(os.path.join(path, str(creationtime)), file.name))
-                    logging.info(f"Sorted File {file.name} in {path}{str(creationtime)}{file.name}")
+                    logging.info("Sorted File %s in %s%s%s", file.name, path, str(creationtime), file.name)
 
         except FileNotFoundError as e:
-            logging.error(f"File not found error: {e}")
+            logging.error("File not found error: %s", {e})
         except PermissionError as e:
-            logging.error(f"Permission denied: {e}")
+            logging.error("Permission denied: %s", {e})
         except Exception as e:
-            logging.error(f"An unexpected error occurred: {e}")
+            logging.error("An unexpected error occurred: %s", {e})
 
     def create_date_folder(self, path):
         try:
-            logging.debug(f"Looking for Folder in Directory: {path} if they exists do nothing else create it")
+            logging.debug("Looking for Folder in Directory: %s if they exist, do nothing; else create it", path)
             time = []
 
             for file in os.scandir(path):
@@ -118,15 +116,15 @@ class FileSorter:
                 logging.info(f"Created folder for year: {year} in {path}")
 
         except FileNotFoundError as e:
-            logging.error(f"Error accessing path {path}: {e}")
+            logging.error("Error accessing path %s: %s", path, e)
         except PermissionError as e:
-            logging.error(f"PermissionError while creating date folders in {path}: {e}")
+            logging.error("PermissionError while creating date folders in %s: %s", path, e)
         except Exception as e:
-            logging.error(f"An unexpected error occurred while creating date folders in {path}: {e}")
+            logging.error("An unexpected error occurred while creating date folders in %s: %s", path, e)
 
     def create_extensions_folders(self, path):
         try:
-            logging.debug(f"Creating Extension Folders in Directory: {path} if they exists do nothing else create it")
+            logging.debug("Creating Extension Folders in Directory: %s if they exist, do nothing; else create it", path)
 
             existing_extensions = set()
 
@@ -140,11 +138,11 @@ class FileSorter:
             for category in existing_extensions:
                 targetfolder = os.path.join(path, category)
                 os.makedirs(targetfolder, exist_ok=True)
-                logging.info(f"Created folder for category: {category} in {path}")
+                logging.info("Created folder for category: %s in %s", category, path)
 
         except FileNotFoundError as e:
-            logging.error(f"Error accessing path {path}: {e}")
+            logging.error("Error accessing path %s: %s", path, e)
         except PermissionError as e:
-            logging.error(f"PermissionError while creating date folders in {path}: {e}")
+            logging.error("PermissionError while creating date folders in %s: %s", path, e)
         except Exception as e:
-            logging.error(f"An unexpected error occurred while creating date folders in {path}: {e}")
+            logging.error("An unexpected error occurred while creating date folders in %s: %s", path, e)
