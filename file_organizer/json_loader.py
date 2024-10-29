@@ -15,9 +15,9 @@ class JsonLoader:
     to read and parse the JSON data, handling errors related to
     file access and JSON decoding.
     """
-    def __init__(self, config_file="config/config.json", file_extensions_config="config/file_extensions.json"):
+    def __init__(self, config_file, extensions_file_config):
         self.config_file = config_file
-        self.file_extensions_config = file_extensions_config
+        self.extensions_file_config = extensions_file_config
         self.config = {}
         self.file_extensions = {}
 
@@ -47,10 +47,10 @@ class JsonLoader:
 
         except FileNotFoundError:
             logging.error("Configuration file %s not found.", file_path)
+            raise
         except json.JSONDecodeError:
             logging.error("Error decoding JSON from %s.", file_path)
-        except Exception as e:
-            logging.error("An unexpected error occurred: %s", e)
+            raise
         return None
 
     def load_config(self):
@@ -68,7 +68,7 @@ class JsonLoader:
         extensions configuration file and store the data in the
         file_extensions attribute.
         """
-        self.file_extensions = self.load_json(self.file_extensions_config)
+        self.file_extensions = self.load_json(self.extensions_file_config)
 
     def get_config(self):
         """Retrieves the loaded configuration data.

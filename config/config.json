@@ -7,10 +7,17 @@
                 "by_extension": true
             }
         },
-        "documents": {
-            "path": "~/Documents",
+        "images": {
+            "path": "~/OneDrive/Bilder",
             "sorting": {
-                "by_date": false,
+                "by_date": true,
+                "by_extension": true
+            }
+        },
+        "videos": {
+            "path": "~/Videos",
+            "sorting": {
+                "by_date": true,
                 "by_extension": true
             }
         }

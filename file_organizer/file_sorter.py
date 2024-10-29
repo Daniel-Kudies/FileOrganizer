@@ -19,8 +19,8 @@ class FileSorter:
     configuration. It utilizes a JsonLoader instance to load necessary
     configuration and file extension mappings.
     """
-    def __init__ (self):
-        json_loader = JsonLoader()
+    def __init__ (self, config, extensions):
+        json_loader = JsonLoader(config_file=config, extensions_file_config=extensions)
         json_loader.load_config()
         json_loader.load_file_extensions()
         self.config = json_loader.get_config()
@@ -40,15 +40,18 @@ class FileSorter:
         """
         try:
             for directory, details in self.config.get("directories", {}).items():
-                logging.info("Processing directory: %s", {directory})
+                logging.info("Processing directory: %s", directory)
 
                 path = os.path.expanduser(details.get("path", ""))
+                logging.info("Path %s", path)
                 sortingoptions = details.get("sorting", {})
+                bydate = sortingoptions.get("by_date")
+                byextensions = sortingoptions.get("by_extension")
 
-                if sortingoptions.get("by_date"):
+                if bydate:
                     self.sort_file_date(path)
-                if sortingoptions.get("by_extension"):
-                    self.sort_file_extensions(path, sortingoptions.get("by_date"))
+                if byextensions:
+                    self.sort_file_extensions(path, bydate)
 
         except FileNotFoundError as e:
             logging.error("File sorting error: %s", e)
@@ -74,11 +77,11 @@ class FileSorter:
             Exception: For any other unexpected errors.
         """
         try:
-            logging.debug("Sorting by File Extensions in Directory: %s", path)
+            logging.info("Sorting by File Extensions in Directory: %s", path)
 
             self.create_extensions_folders(path)
             if bydate:
-                logging.info("Sorting by extensions within date folders.")
+                logging.debug("Sorting by extensions within date folders.")
 
                 for year_folder in os.scandir(path):
                     if year_folder.is_dir():
@@ -127,7 +130,7 @@ class FileSorter:
             Exception: For any other unexpected errors.
         """
         try:
-            logging.debug("Sorting by File Date in Directory: %s", path)
+            logging.info("Sorting by File Date in Directory: %s", path)
 
             self.create_date_folder(path)
 

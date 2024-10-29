@@ -1,13 +1,61 @@
 {
-    "Audio": [".aif", ".cda", ".mid", ".mp3", ".ogg", ".wav", ".wma"],
-    "Text": [".txt", ".doc", ".pdf", ".rtf"],
-    "Video": [".mp4", ".avi", ".mkv", ".mov"],
-    "Images": [".jpg", ".png", ".gif", ".bmp"],
-    "Compressed": [".zip", ".rar", ".tar.gz"],
-    "Disc": [".iso", ".dmg"],
-    "Data": [".csv", ".xml", ".json"],
-    "Executables": [".exe", ".bat", ".jar"],
-    "Fonts": [".ttf", ".otf"],
-    "Presentations": [".ppt", ".pptx"],
-    "Other": [".bak", ".tmp", ".cfg"]
+    "Audio": [
+        ".aif",
+        ".cda",
+        ".mid",
+        ".mp3",
+        ".ogg",
+        ".wav",
+        ".wma"
+    ],
+    "Text": [
+        ".txt",
+        ".doc",
+        ".pdf",
+        ".rtf"
+    ],
+    "Video": [
+        ".mp4",
+        ".avi",
+        ".mkv",
+        ".mov"
+    ],
+    "Images": [
+        ".jpg",
+        ".png",
+        ".gif",
+        ".bmp"
+    ],
+    "Compressed": [
+        ".zip",
+        ".rar",
+        ".tar.gz"
+    ],
+    "Disc": [
+        ".iso",
+        ".dmg"
+    ],
+    "Data": [
+        ".csv",
+        ".xml",
+        ".json"
+    ],
+    "Executables": [
+        ".exe",
+        ".bat",
+        ".jar"
+    ],
+    "Fonts": [
+        ".ttf",
+        ".otf"
+    ],
+    "Presentations": [
+        ".ppt",
+        ".pptx"
+    ],
+    "Other": [
+        ".bak",
+        ".tmp",
+        ".cfg"
+    ]
 }

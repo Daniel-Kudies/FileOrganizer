@@ -4,8 +4,8 @@ Main module for the FileOrganizer project.
 This module serves as the entry point for the FileOrganizer application.
 It initializes the necessary components and triggers the file sorting process.
 """
-import logging
 import json
+import logging
 from file_sorter import FileSorter
 
 def config_logging():
@@ -24,8 +24,15 @@ def main():
     """
     try:
         config_logging()
+
+        logging.info("Setting the file path to the jsons")
+        config_file_path = "config/config.json"
+        extensions_file_config_path = 'config/file_extensions.json'
+        logging.info("Directorys: %s", config_file_path)
+        logging.info("Extensions: %s", extensions_file_config_path)
+
         logging.info("Start the FileOrganizer...")
-        FileSorter().sort_files()
+        FileSorter(config_file_path, extensions_file_config_path).sort_files()
         logging.info("Completed the file sorting.")
 
     except FileNotFoundError as e:

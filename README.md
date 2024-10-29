@@ -15,6 +15,11 @@
 
 ```plaintext
 FileOrganizer/
+├── .github
+│   ├── configs
+│   │   └── .pylintrc            # Contains the settings for the linting
+│   ├── workflows
+│   │   └── pylint.yml           # Contains the workflow logic for the linting
 ├── config
 │   ├── config.json              # Main configuration file
 │   └── file_extensions.json     # Defines extensions for different file types
@@ -23,6 +28,7 @@ FileOrganizer/
 │   ├── json_loader.py           # Loads configurations from JSON files
 │   └── main.py                  # Entry point to run the file organizer
 ├──tests
+│   └── test_json_loader.py      # Tests for the json_loader.py
 ├── requirements.txt
 ```
 
@@ -41,8 +47,14 @@ In config/config.json, specify the directories and sorting options:
 In config/file_extensions.json, define file types and extensions:
 ```json
 {
-  "Images": [".jpg", ".png", ".gif", ".bmp"],
-  "Text": [".txt", ".doc", ".pdf", ".rtf"]
+    "Audio": [
+        ".aif",
+        ".cda"
+    ],
+    "Text": [
+        ".txt",
+        ".doc"
+    ]
 }
 ```
 
